@@ -1,0 +1,23 @@
+﻿@using Stok_Projesi.Models
+@model List<STK>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h2>Index</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Mal Kodu</th>
+            <th>Mal Adı</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MalKodu</td>
+                <td>@item.MalAdi</td>
+            </tr>
+        }
+    </table>
+    <a class="btn btn-primary" href="/STı/Index">Ana Sayfaya Dön</a>
+</div>

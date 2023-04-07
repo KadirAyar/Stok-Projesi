@@ -1,0 +1,61 @@
+﻿
+@model Stok_Projesi.Models.STı
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "STı", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>İşlem Türü</label>
+                    <select  name="IslemTur" class="form-control" >
+                        <option>Seçiniz</option>
+                        <option value="0">Giriş</option>
+                        <option value="1">Çıkış</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Evrak No</label>
+                    <input type="text" name="EvrakNo" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Tarih</label>
+                    <input type="date" name="Tarih" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Mal Kodu</label>
+                    <input type="text" name="MalKodu" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Miktar</label>
+                    <input type="number" name="Miktar" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Fiyat</label>
+                    <input type="number" name="Fiyat" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Tutar</label>
+                    <input type="number" name="Tutar" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Birim</label>
+                    <input type="number" name="Birim" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>STK</label>
+                    @Html.DropDownListFor(x => x.STKId, (List<SelectListItem>)ViewBag.ktgr, new { @class = "form-control" })
+                </div>
+                <br />
+                <button class="btn btn-primary" type="submit">Ekle</button>
+                <a class="btn btn-danger" href="/STı/Index">Ana Sayfaya Dön</a>
+            </div>
+
+        </div>
+
+    </div>
+}

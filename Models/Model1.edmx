@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StokEkstresiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="STı">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IslemTur" Type="smallint" Nullable="false" />
+          <Property Name="EvrakNo" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="Tarih" Type="int" Nullable="false" />
+          <Property Name="MalKodu" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Miktar" Type="numeric" Precision="25" Scale="6" Nullable="false" />
+          <Property Name="Fiyat" Type="numeric" Precision="25" Scale="6" Nullable="false" />
+          <Property Name="Tutar" Type="numeric" Precision="25" Scale="6" Nullable="false" />
+          <Property Name="Birim" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="STKId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STK">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MalKodu" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MalAdi" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_STı_STK">
+          <End Role="STK" Type="Self.STK" Multiplicity="1" />
+          <End Role="STı" Type="Self.STı" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STK">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STı">
+              <PropertyRef Name="STKId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StokEkstresiModelStoreContainer">
+          <EntitySet Name="STı" EntityType="Self.STı" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STK" EntityType="Self.STK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_STı_STK" Association="Self.FK_STı_STK">
+            <End Role="STK" EntitySet="STK" />
+            <End Role="STı" EntitySet="STı" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StokEkstresiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="STı">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IslemTur" Type="Int16" Nullable="false" />
+          <Property Name="EvrakNo" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tarih" Type="Int32" Nullable="false" />
+          <Property Name="MalKodu" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Miktar" Type="Decimal" Precision="25" Scale="6" Nullable="false" />
+          <Property Name="Fiyat" Type="Decimal" Precision="25" Scale="6" Nullable="false" />
+          <Property Name="Tutar" Type="Decimal" Precision="25" Scale="6" Nullable="false" />
+          <Property Name="Birim" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STKId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="STK" Relationship="Self.FK_STı_STK" FromRole="STı" ToRole="STK" />
+        </EntityType>
+        <EntityType Name="STK">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MalKodu" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MalAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="STı" Relationship="Self.FK_STı_STK" FromRole="STK" ToRole="STı" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_STı_STK">
+          <End Role="STK" Type="Self.STK" Multiplicity="1" />
+          <End Role="STı" Type="Self.STı" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STK">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STı">
+              <PropertyRef Name="STKId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StokEkstresiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="STı" EntityType="Self.STı" />
+          <EntitySet Name="STK" EntityType="Self.STK" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_STı_STK" Association="Self.FK_STı_STK">
+            <End Role="STK" EntitySet="STK" />
+            <End Role="STı" EntitySet="STı" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StokEkstresiModelStoreContainer" CdmEntityContainer="StokEkstresiEntities">
+          <EntitySetMapping Name="STı">
+            <EntityTypeMapping TypeName="StokEkstresiModel.STı">
+              <MappingFragment StoreEntitySet="STı">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IslemTur" ColumnName="IslemTur" />
+                <ScalarProperty Name="EvrakNo" ColumnName="EvrakNo" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="MalKodu" ColumnName="MalKodu" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+                <ScalarProperty Name="Birim" ColumnName="Birim" />
+                <ScalarProperty Name="STKId" ColumnName="STKId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STK">
+            <EntityTypeMapping TypeName="StokEkstresiModel.STK">
+              <MappingFragment StoreEntitySet="STK">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MalKodu" ColumnName="MalKodu" />
+                <ScalarProperty Name="MalAdi" ColumnName="MalAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="StokEkstresiModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

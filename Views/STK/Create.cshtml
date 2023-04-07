@@ -1,0 +1,28 @@
+﻿@model Stok_Projesi.Models.STK
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "STK", FormMethod.Post)) 
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Mal Kodu</label>
+                    <input type="text" name="MalKodu" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Mal Adı</label>
+                    <input type="text" name="MalAdi" class="form-control" />
+                </div>
+                <br />
+                <button class="btn btn-primary" type="submit">Ekle</button>
+                <a class="btn btn-danger" href="/STı/Index">Ana Sayfaya Dön</a>
+            </div>
+
+        </div>
+
+    </div>
+}

@@ -1,0 +1,78 @@
+﻿@using Stok_Projesi.Models
+@model List<STı>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal stok = 0;
+}
+<div class="container">
+    <h2>Ürünler</h2>
+    @using (Html.BeginForm("Index", "STı", FormMethod.Get))
+    {
+        <p>
+            Anahtar Kelime: @Html.TextBox("search")
+            <input type="submit" value="Ara" />
+        </p>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Sıra No</th>
+                <th scope="col">İşlemTürü</th>
+                <th scope="col">EvrakNo</th>
+                <th scope="col">Tarih</th>
+                <th scope="col">MalKodu</th>
+                <th scope="col">GirişMiktar</th>
+                <th scope="col">ÇıkışMiktar</th>
+                <th scope="col">StokMiktar</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach (var item in Model)
+            {
+
+
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td scope="row">@item.STKId</td>
+                    @if (item.IslemTur == 0)
+                    {
+
+
+                        <td>Giriş</td>
+                    }
+                    else
+                    {
+                        <td>Çıkış</td>
+                    }
+
+                    <td>@item.EvrakNo</td>
+                    <td>@item.Tarih</td>
+                    <td>@item.MalKodu</td>
+                    @if (item.IslemTur == 0)
+                    {
+                        <td>@item.Miktar</td>
+                    }
+                    else
+                    {
+                        <td>0</td>
+                    }
+                    @if (item.IslemTur == 1)
+                    {
+                        <td>@item.Miktar</td>
+                    }
+                    else
+                    {
+                        <td>0</td>
+                    }
+                    <td>@stok</td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+    @Html.ActionLink("Export to excel", "ExportExcel", new { @class = "btn btn-primary" })
+</div>
+
